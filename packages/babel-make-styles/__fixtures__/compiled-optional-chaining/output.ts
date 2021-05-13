@@ -9,9 +9,14 @@ export var makeButtonTokens = (theme: Theme) => {
     },
   };
 };
-export var useStyles = __styles({
-  rootPrimary: {
-    sj55zd: ['', 'fe3e8s9', '.fe3e8s9{color:red;}'],
-    ayd6f0: ['', 'f1pzj0k4', '.f1pzj0k4{background:var(--alias-color-brand-brandBackgroundHover);}'],
+export var useStyles = __styles(
+  {
+    rootPrimary: {
+      sj55zd: 'fe3e8s9',
+      ayd6f0: 'f1pzj0k4',
+    },
   },
-});
+  {
+    d: ['.fe3e8s9{color:red;}', '.f1pzj0k4{background:var(--alias-color-brand-brandBackgroundHover);}'],
+  },
+);
