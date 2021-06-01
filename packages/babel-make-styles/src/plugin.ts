@@ -389,6 +389,14 @@ function processDefinitions(
         });
         return;
       }
+
+      if (stylesPath.isCallExpression()) {
+        state.styleNodes?.push({
+          kind: 'LAZY_EXPRESSION',
+          nodePath: stylesPath,
+        });
+        return;
+      }
     }
 
     throw styleSlotPath.buildCodeFrameError(UNHANDLED_CASE_ERROR);
@@ -429,7 +437,11 @@ export const plugin = declare<Partial<BabelPluginOptions>, PluginObj<BabelPlugin
 
           const pathsToEvaluate = state.styleNodes!.reduce<NodePath<t.Expression | t.SpreadElement>[]>(
             (acc, styleNode) => {
-              if (styleNode.kind === 'LAZY_IDENTIFIER' || styleNode.kind === 'LAZY_FUNCTION') {
+              if (
+                styleNode.kind === 'LAZY_IDENTIFIER' ||
+                styleNode.kind === 'LAZY_FUNCTION' ||
+                styleNode.kind === 'LAZY_EXPRESSION'
+              ) {
                 return [...acc, styleNode.nodePath];
               }
 

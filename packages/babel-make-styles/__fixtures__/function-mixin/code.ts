@@ -1,7 +1,8 @@
 import { makeStyles } from '@fluentui/react-make-styles';
-import { mixinFunction, mixinFactory } from './mixins';
+import { createMixin, mixinFunction, mixinFactory } from './mixins';
 
 export const useStyles = makeStyles({
-  root: mixinFunction,
+  // root: mixinFunction,
   image: mixinFactory(),
+  avatar: createMixin({ display: 'block', opacity: '0' }),
 });

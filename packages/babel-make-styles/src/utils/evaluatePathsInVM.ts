@@ -192,12 +192,25 @@ export function evaluatePathsInVM(
       return t.callExpression(hoistedNode as t.ArrowFunctionExpression, [t.identifier(themeVariableName)]);
     }
 
+    // TODO: comment
+    if (nodePath.isCallExpression()) {
+      return t.callExpression(hoistedNode as any /* TODO */, [t.identifier(themeVariableName)]);
+    }
+
+    if (nodePath.isIdentifier()) {
+      // TODO: wrap it into (typeof mixinFunction === 'function' ? mixinFunction(_theme) : mixinFunction)
+      return t.callExpression(hoistedNode as any /* TODO */, [t.identifier(themeVariableName)]);
+    }
+
     return hoistedNode;
   });
 
   const modifiedProgram = addPreval(program, themeVariableName, hoistedPathsToEvaluate);
 
   const { code } = generator(modifiedProgram);
+
+  console.log('GENERATED CODE', code);
+
   const results = evaluate(code, filename);
 
   for (let i = 0; i < nodePaths.length; i++) {
